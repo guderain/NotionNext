@@ -14,7 +14,7 @@ export default function Header(props) {
   return (
     <header className='text-center justify-between items-center px-6 bg-white h-80 dark:bg-black relative z-10'>
       <div className='float-none inline-block py-12'>
-        <Link href='/'>
+        <Link href='/public/images/home.webp'>
           {/* 可使用一张单图作为logo */}
           <div className='flex space-x-6 justify-center'>
             <div className='hover:rotate-45 hover:scale-125 transform duration-200 cursor-pointer justify-center items-center flex'>
