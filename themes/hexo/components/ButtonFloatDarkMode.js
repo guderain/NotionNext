@@ -38,7 +38,7 @@ export default function ButtonDarkModeFloat() {
       id='darkModeButton'
       description={isDarkMode ? '白天' : '夜晚'}
       shape="square"
-      style={{ insetInlineEnd: 24 }}
+      style={{ insetInlineEnd: 24, position: 'fixed', top: '50%', transform: 'translateY(-50%)'}}
     />
     </div>
   )
