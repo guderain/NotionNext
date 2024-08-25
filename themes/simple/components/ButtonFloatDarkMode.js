@@ -38,6 +38,7 @@ export default function ButtonDarkModeFloat() {
       id='darkModeButton'
       description={isDarkMode ? '白天' : '夜晚'}
       shape="square"
+      className='fas text-xs'
       style={{ insetInlineEnd: 24 }}
     />
     </div>
