@@ -69,7 +69,7 @@ const Style = () => {
         scrollbar-color: #49b1f5 transparent
     }
 
-    #darkModeButton:hover {
+    #darkModeButton.button {
         background-color: whitesmoke
     }
 
