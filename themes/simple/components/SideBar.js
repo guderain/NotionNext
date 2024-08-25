@@ -16,7 +16,6 @@ export default function SideBar (props) {
 
             <Catalog {...props} />
 
-            // <Live2D />
             <ButtonDarkModeFloat/>
 
             <Announcement post={notice} />
