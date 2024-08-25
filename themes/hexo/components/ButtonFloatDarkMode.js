@@ -22,7 +22,7 @@ export default function ButtonDarkModeFloat() {
     htmlElement.classList?.remove(newStatus ? 'light' : 'dark')
     htmlElement.classList?.add(newStatus ? 'dark' : 'light')
   }
-  const modeText = isDarkMode ? "白天" : "夜晚";
+  const modeText = isDarkMode ? "切换至白天" : "切换至夜晚";
   return (
     <div
       onClick={handleChangeDarkMode}
