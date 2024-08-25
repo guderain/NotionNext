@@ -22,13 +22,14 @@ export default function ButtonDarkModeFloat() {
     htmlElement.classList?.remove(newStatus ? 'light' : 'dark')
     htmlElement.classList?.add(newStatus ? 'dark' : 'light')
   }
-
+  const modeText = isDarkMode ? "白天" : "夜晚";
   return (
     <div
       onClick={handleChangeDarkMode}
       className={
         'justify-center items-center w-7 h-7 text-center transform hover:scale-105 duration-200'
       }>
+        <span>{modeText}</span>
       <i
         id='darkModeButton'
         className={`${isDarkMode ? 'fa-sun' : 'fa-moon'} fas text-xs`}
