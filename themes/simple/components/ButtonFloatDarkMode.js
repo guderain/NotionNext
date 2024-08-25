@@ -2,6 +2,11 @@ import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
 import { saveDarkModeToLocalStorage } from '@/themes/theme'
 import CONFIG from '../config'
+import {
+    MoonOutlined,
+    SunOutlined
+  } from '@ant-design/icons';
+import { FloatButton } from 'antd';
 
 /**
  * 深色模式按钮
@@ -28,10 +33,13 @@ export default function ButtonDarkModeFloat() {
       className={
         'justify-center items-center w-7 h-7 text-center transform hover:scale-105 duration-200'
       }>
-      <i
-        id='darkModeButton'
-        className={`${isDarkMode ? 'fa-sun' : 'fa-moon'} fas text-xs`}
-      />
+      <FloatButton
+      icon={isDarkMode ? <SunOutlined /> : <MoonOutlined/>}
+      id='darkModeButton'
+      description={isDarkMode ? '白天' : '夜晚'}
+      shape="square"
+      style={{ insetInlineEnd: 24 }}
+    />
     </div>
   )
 }
