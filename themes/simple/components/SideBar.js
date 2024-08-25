@@ -2,7 +2,7 @@ import { AdSlot } from '@/components/GoogleAdsense'
 import Announcement from './Announcement'
 import Catalog from './Catalog'
 import WWAds from '@/components/WWAds'
-import ButtonDarkModeFloat from './ButtonFloatDarkMode'
+import ButtonDarkModeFloat from '@/themes/hexo/components/ButtonFloatDarkMode'
 /**
  * 侧边栏
  * @param {*} props
@@ -14,7 +14,7 @@ export default function SideBar (props) {
 
             <Catalog {...props} />
 
-            <ButtonDarkModeFloat/>
+            <ButtonDarkModeFloat></ButtonDarkModeFloat>
 
             <Announcement post={notice} />
 
