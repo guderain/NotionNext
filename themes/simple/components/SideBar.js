@@ -3,6 +3,7 @@ import Live2D from '@/components/Live2D'
 import Announcement from './Announcement'
 import Catalog from './Catalog'
 import WWAds from '@/components/WWAds'
+import ButtonDarkModeFloat from '@/themes/hexo/components/ButtonFloatDarkMode'
 
 /**
  * 侧边栏
@@ -15,7 +16,8 @@ export default function SideBar (props) {
 
             <Catalog {...props} />
 
-            <Live2D />
+            // <Live2D />
+            <ButtonDarkModeFloat/>
 
             <Announcement post={notice} />
 
