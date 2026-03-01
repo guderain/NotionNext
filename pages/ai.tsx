@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useMemo, useState } from 'react'
+import { FormEvent, useEffect, useMemo, useRef, useState } from 'react'
 
 import { useRouter } from 'next/router'
 import ReactMarkdown from 'react-markdown'
@@ -122,6 +122,7 @@ function updateMessage(messages: ChatMessage[], id: string, updater: (msg: ChatM
 
 export default function AIPage() {
   const router = useRouter()
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   const [isClientReady, setIsClientReady] = useState(false)
   const isEmbedded = isClientReady && router.query.embed === '1'
 
@@ -148,6 +149,11 @@ export default function AIPage() {
     const el = document.getElementById(`preview-paragraph-${previewFocusIndex}`)
     el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }, [previewFocusIndex, preview?.path])
+
+  useEffect(() => {
+    if (!isClientReady) return
+    textareaRef.current?.focus()
+  }, [isClientReady])
 
   const submitQuestion = async (q: string) => {
     const cleanQuestion = q.trim()
@@ -423,7 +429,7 @@ export default function AIPage() {
               onSubmit={(e) => {
                 void handleSubmit(e)
               }}
-              className='space-y-4'
+              className='relative z-10 space-y-4 pointer-events-auto'
             >
               <div className='flex flex-wrap gap-2'>
                   {quickPrompts.map((item) => (
@@ -443,10 +449,14 @@ export default function AIPage() {
                 </div>
 
               <textarea
-                className='h-32 w-full rounded-xl border border-white/10 bg-slate-950/80 p-4 text-sm leading-6 text-slate-100 outline-none transition placeholder:text-slate-500 focus:border-cyan-300/70 focus:ring-2 focus:ring-cyan-300/25'
+                ref={textareaRef}
+                className='kb-input relative z-10 h-32 w-full rounded-xl border border-white/10 bg-slate-950/80 p-4 text-sm leading-6 text-black outline-none transition placeholder:text-slate-500 focus:border-cyan-300/90 focus:ring-2 focus:ring-cyan-300/35 pointer-events-auto'
                 placeholder='输入你的问题，例如：NotionNext 项目中如何落地知识库问答系统？'
                 value={question}
                 onChange={(e) => setQuestion(e.target.value)}
+                onPointerDown={(e) => {
+                  e.stopPropagation()
+                }}
               />
 
               <div className='flex flex-wrap items-center justify-between gap-3'>
@@ -680,6 +690,14 @@ export default function AIPage() {
           border-radius: 0.5rem;
           background: rgba(15, 23, 42, 0.65);
           border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .kb-input {
+          caret-color: #22d3ee;
+        }
+
+        .kb-input:focus::placeholder {
+          color: transparent;
         }
 
         @keyframes blink {

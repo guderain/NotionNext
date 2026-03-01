@@ -1,4 +1,6 @@
-const KB_AI_BASE_URL = process.env.KB_AI_BASE_URL || 'http://localhost:8000'
+const DEFAULT_KB_AI_BASE_URL =
+  process.env.NODE_ENV === 'production' ? 'http://49.232.223.253:8000' : 'http://127.0.0.1:8000'
+const KB_AI_BASE_URL = process.env.KB_AI_BASE_URL || DEFAULT_KB_AI_BASE_URL
 const KB_AI_API_KEY = process.env.KB_AI_API_KEY || ''
 
 export default async function handler(req, res) {
@@ -7,6 +9,10 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
+  // 本地联调排查：检查 env 是否生效（排查完可删除）
+  if (process.env.NODE_ENV === 'development') {
+    console.log('[kb-chat] KB_AI_BASE_URL:', KB_AI_BASE_URL, '| KB_AI_API_KEY:', KB_AI_API_KEY ? '已配置' : '未配置')
+  }
   if (!KB_AI_API_KEY) {
     return res.status(500).json({ error: 'Server missing KB_AI_API_KEY' })
   }
