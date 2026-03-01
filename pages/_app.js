@@ -16,6 +16,7 @@ import { getQueryParam } from '../lib/utils'
 // 各种扩展插件 这个要阻塞引入
 import BLOG from '@/blog.config'
 import ExternalPlugins from '@/components/ExternalPlugins'
+import AIFloatAssistant from '@/components/AIFloatAssistant'
 import SEO from '@/components/SEO'
 import { zhCN } from '@clerk/localizations'
 import dynamic from 'next/dynamic'
@@ -34,6 +35,7 @@ const MyApp = ({ Component, pageProps }) => {
   useAdjustStyle()
 
   const route = useRouter()
+  const isAiPage = route.pathname === '/ai'
   const theme = useMemo(() => {
     return (
       getQueryParam(route.asPath, 'theme') ||
@@ -54,11 +56,18 @@ const MyApp = ({ Component, pageProps }) => {
   const enableClerk = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
   const content = (
     <GlobalContextProvider {...pageProps}>
-      <GLayout {...pageProps}>
-        <SEO {...pageProps} />
+      {isAiPage ? (
         <Component {...pageProps} />
-      </GLayout>
-      <ExternalPlugins {...pageProps} />
+      ) : (
+        <>
+          <GLayout {...pageProps}>
+            <SEO {...pageProps} />
+            <Component {...pageProps} />
+          </GLayout>
+          <AIFloatAssistant />
+          <ExternalPlugins {...pageProps} />
+        </>
+      )}
     </GlobalContextProvider>
   )
   return (
