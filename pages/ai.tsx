@@ -46,12 +46,9 @@ type SourcePreview = {
   content: string
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_KB_AI_BASE_URL || 'http://localhost:8000'
-const apiKey = process.env.NEXT_PUBLIC_KB_AI_API_KEY || ''
-const jsonHeaders: HeadersInit = apiKey
-  ? { 'Content-Type': 'application/json', 'X-API-Key': apiKey }
-  : { 'Content-Type': 'application/json' }
-const authHeaders: HeadersInit = apiKey ? { 'X-API-Key': apiKey } : {}
+const chatApiPath = '/api/kb-chat'
+const streamApiPath = '/api/kb-chat-stream'
+const sourceContentApiPath = '/api/kb-source-content'
 const quickPrompts = [
   'NotionNext 如何接入 RAG 问答？',
   'langchain + milvus 的最佳实践是什么？',
@@ -203,9 +200,9 @@ export default function AIPage() {
   }
 
   const askOnce = async (q: string, messageId: string) => {
-    const res = await fetch(`${baseUrl}/api/v1/chat`, {
+    const res = await fetch(chatApiPath, {
       method: 'POST',
-      headers: jsonHeaders,
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ question: q, session_id: 'notionnext-web' })
     })
     if (!res.ok) {
@@ -223,9 +220,9 @@ export default function AIPage() {
   }
 
   const askStream = async (q: string, messageId: string) => {
-    const res = await fetch(`${baseUrl}/api/v1/chat/stream`, {
+    const res = await fetch(streamApiPath, {
       method: 'POST',
-      headers: jsonHeaders,
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ question: q, session_id: 'notionnext-web' })
     })
     if (!res.ok || !res.body) {
@@ -290,9 +287,7 @@ export default function AIPage() {
     setPreviewFocusIndex(null)
 
     try {
-      const res = await fetch(`${baseUrl}/api/v1/sources/content?path=${encodeURIComponent(source)}`, {
-        headers: authHeaders
-      })
+      const res = await fetch(`${sourceContentApiPath}?path=${encodeURIComponent(source)}`)
       if (!res.ok) {
         throw new Error(`来源读取失败: ${res.status}`)
       }
