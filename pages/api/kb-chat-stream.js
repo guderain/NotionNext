@@ -1,9 +1,10 @@
 const DEFAULT_KB_AI_BASE_URL =
-  process.env.NODE_ENV === 'production' ? 'http://49.232.223.253:8000' : 'http://127.0.0.1:8000'
+  process.env.NODE_ENV === 'production' ? 'https://api.wangguanxi.space' : 'http://127.0.0.1:8000'
 const KB_AI_BASE_URL = process.env.KB_AI_BASE_URL || DEFAULT_KB_AI_BASE_URL
 const KB_AI_API_KEY = process.env.KB_AI_API_KEY || ''
 
 export const config = {
+  maxDuration: 60,
   api: {
     bodyParser: true
   }
