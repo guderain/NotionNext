@@ -57,11 +57,9 @@ export async function getStaticPaths() {
   const from = 'category-paths'
   const { categoryOptions } = await fetchGlobalAllData({ from })
   return {
-    paths: (Array.isArray(categoryOptions) ? categoryOptions : [])
-      .filter(category => category?.name)
-      .map(category => ({
-        params: { category: category.name }
-      })),
+    paths: Object.keys(categoryOptions).map(category => ({
+      params: { category: categoryOptions[category]?.name }
+    })),
     fallback: true
   }
 }
